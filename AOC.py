@@ -1,6 +1,9 @@
 from abc import abstractmethod, ABC
 from pathlib import Path
+
 import requests
+
+from config import config
 
 
 class BaseAOC(ABC):
@@ -12,7 +15,7 @@ class BaseAOC(ABC):
         self.parse_input()
 
     def retrieve_input(self) -> None:
-        path = Path(f'./inputs/day_{self.day}.txt')
+        path = Path(f"./inputs/day_{self.day}.txt")
         if not path.is_file():
             self.raw_input = self.download_input()
             with open(path, "w") as file_input:
@@ -25,7 +28,11 @@ class BaseAOC(ABC):
     def download_input(self) -> str:
         cookies = {"session": config.session_id}
 
-        r = requests.get(f"https://adventofcode.com/{self.YEAR}/day/{self.day}/input", cookies=cookies, verify=False)
+        r = requests.get(
+            f"https://adventofcode.com/{self.YEAR}/day/{self.day}/input",
+            cookies=cookies,
+            verify=False,
+        )
 
         if r.status_code == 200:
             return r.text
@@ -39,4 +46,4 @@ class BaseAOC(ABC):
 
 class LinearAOC(BaseAOC):
     def parse_input(self):
-        self.input = self.raw_input.split('\n')
+        self.input = self.raw_input.split("\n")
