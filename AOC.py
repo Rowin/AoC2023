@@ -47,4 +47,4 @@ class BaseAOC(ABC):
 
 class LinearAOC(BaseAOC):
     def parse_input(self):
-        self.input = self.raw_input.split("\n")
+        self.input = self.raw_input.splitlines()
