@@ -8,9 +8,10 @@ from config import config
 
 class BaseAOC(ABC):
     YEAR = config.year
+    DAY: int
 
-    def __init__(self, day):
-        self.day = day
+    def __init__(self):
+        self.day = self.DAY
         self.retrieve_input()
         self.parse_input()
 
