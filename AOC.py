@@ -1,6 +1,8 @@
 from abc import abstractmethod, ABC
 from pathlib import Path
+from typing import Any
 
+import numpy as np
 import requests
 
 from config import config
@@ -14,6 +16,8 @@ class BaseAOC(ABC):
         self.day = self.DAY
         self.retrieve_input()
         self.parse_input()
+        self.raw_input: str
+        self.input: Any
 
     def retrieve_input(self) -> None:
         path = Path(f"./inputs/day_{self.day}.txt")
@@ -48,3 +52,8 @@ class BaseAOC(ABC):
 class LinearAOC(BaseAOC):
     def parse_input(self):
         self.input = self.raw_input.splitlines()
+
+
+class GridAOC(BaseAOC):
+    def parse_input(self):
+        self.input = np.array([list(line) for line in self.raw_input.splitlines()])
