@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 requests = "*"
 PyYAML = "*"
+numpy = "*"
 
 [dev-packages]
 black = "*"
