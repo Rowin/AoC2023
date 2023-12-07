@@ -17,14 +17,9 @@ class Day7(AOC.LinearAOC):
             self.type = self.compute_type()
 
             if jokers:
-                old_type = self.type
                 self.type = self.apply_jokers()
-                if old_type != self.type:
-                    print(
-                        f"{self.hand}: {old_type.value} converted to {self.type.value}"
-                    )
 
-            self.score = self.compute_score()
+            self.score = self.compute_score(jokers=jokers)
 
         class Type(enum.IntEnum):
             FIVE_OF_A_KIND = 7
@@ -55,9 +50,14 @@ class Day7(AOC.LinearAOC):
                 case _:
                     raise
 
-        def compute_score(self):
+        def compute_score(self, jokers):
+            if jokers:
+                translate_to = '23456789A1CDE'
+            else:
+                translate_to = '23456789ABCDE'
+
             score = int(
-                f'{self.type}{self.hand.translate(str.maketrans("23456789TJQKA", "23456789ABCDE"))}',
+                f'{self.type}{self.hand.translate(str.maketrans("23456789TJQKA", translate_to))}',
                 16,
             )
 
@@ -91,6 +91,9 @@ class Day7(AOC.LinearAOC):
 
         def __eq__(self, other):
             return self.score == other.score
+
+        def __repr__(self):
+            return f"{self.hand} {self.bid} {self.score}"
 
     def part_1(self):
         hands = sorted([self.Hand(hand) for hand in self.input])
