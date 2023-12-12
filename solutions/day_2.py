@@ -1,8 +1,7 @@
 import collections
 import math
-import re
 
-import AOC
+from utils import AOC
 
 
 class Day2(AOC.LinearAOC):

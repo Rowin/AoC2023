@@ -1,11 +1,13 @@
 from abc import abstractmethod, ABC
 from pathlib import Path
 from typing import Any
+from importlib import resources
 
 import numpy as np
 import requests
 
-from config import config
+from .config import config
+import inputs
 
 
 class BaseAOC(ABC):
@@ -28,14 +30,14 @@ class BaseAOC(ABC):
         ...
 
     def retrieve_input(self) -> None:
-        path = Path(f"./inputs/day_{self.day}.txt")
+        path = resources.files(inputs) / f"day_{self.day}.txt"
         if not path.is_file():
             self.raw_input = self.download_input()
-            with open(path, "w") as file_input:
+            with path.open("w") as file_input:
                 file_input.write(self.raw_input)
 
         else:
-            with open(path, "r") as file_input:
+            with path.open("r") as file_input:
                 self.raw_input = file_input.read()
 
     def download_input(self) -> str:

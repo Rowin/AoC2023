@@ -1,6 +1,6 @@
 import math
 
-import AOC
+from utils import AOC
 
 
 class Day6(AOC.LinearAOC):

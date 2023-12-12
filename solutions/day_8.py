@@ -3,7 +3,7 @@ import itertools
 import re
 from collections import defaultdict
 
-import AOC
+from utils import AOC
 
 
 class Day8(AOC.LineGroupAOC):

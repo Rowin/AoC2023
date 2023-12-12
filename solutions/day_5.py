@@ -1,7 +1,4 @@
-import itertools
-
-
-import AOC
+from utils import AOC
 
 
 class Day5(AOC.LineGroupAOC):

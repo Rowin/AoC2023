@@ -1,8 +1,7 @@
 import functools
 import re
 
-
-import AOC
+from utils import AOC
 
 
 class Day12(AOC.LinearAOC):

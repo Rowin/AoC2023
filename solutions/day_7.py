@@ -2,7 +2,7 @@ import collections
 import enum
 import functools
 
-import AOC
+from utils import AOC
 
 
 class Day7(AOC.LinearAOC):
@@ -52,9 +52,9 @@ class Day7(AOC.LinearAOC):
 
         def compute_score(self, jokers):
             if jokers:
-                translate_to = '23456789A1CDE'
+                translate_to = "23456789A1CDE"
             else:
-                translate_to = '23456789ABCDE'
+                translate_to = "23456789ABCDE"
 
             score = int(
                 f'{self.type}{self.hand.translate(str.maketrans("23456789TJQKA", translate_to))}',

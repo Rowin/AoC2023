@@ -1,6 +1,6 @@
 import re
 
-from AOC import LinearAOC
+from utils.AOC import LinearAOC
 
 
 class Day1(LinearAOC):

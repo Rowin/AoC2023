@@ -1,6 +1,6 @@
 import numpy as np
 
-import AOC
+from utils import AOC
 
 
 class Day9(AOC.LinearAOC):

@@ -1,4 +1,4 @@
-import AOC
+from utils import AOC
 
 
 class Day4(AOC.LinearAOC):
