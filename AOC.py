@@ -19,6 +19,14 @@ class BaseAOC(ABC):
         self.raw_input: str
         self.input: Any
 
+    @abstractmethod
+    def part_1(self):
+        ...
+
+    @abstractmethod
+    def part_2(self):
+        ...
+
     def retrieve_input(self) -> None:
         path = Path(f"./inputs/day_{self.day}.txt")
         if not path.is_file():
