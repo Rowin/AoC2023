@@ -59,17 +59,17 @@ class BaseAOC(ABC):
         ...
 
 
-class LinearAOC(BaseAOC):
+class LinearAOC(BaseAOC, ABC):
     def parse_input(self):
         self.input = self.raw_input.splitlines()
 
 
-class GridAOC(BaseAOC):
+class GridAOC(BaseAOC, ABC):
     def parse_input(self):
         self.input = np.array([list(line) for line in self.raw_input.splitlines()])
 
 
-class LineGroupAOC(BaseAOC):
+class LineGroupAOC(BaseAOC, ABC):
     def parse_input(self):
         tmp_input = self.raw_input.splitlines()
 
@@ -83,3 +83,13 @@ class LineGroupAOC(BaseAOC):
             acc.append(line)
         else:
             self.input.append(acc)
+
+
+class GridGroupAOC(LineGroupAOC, ABC):
+    def parse_input(self):
+        super().parse_input()
+        grid_input = []
+        for group in self.input:
+            grid_input.append(np.array(group))
+
+        self.input = grid_input
