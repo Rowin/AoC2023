@@ -5,7 +5,6 @@ from importlib import resources
 
 import numpy as np
 import requests
-import numpy.typing as npt
 
 from .config import config
 import inputs
@@ -67,9 +66,7 @@ class LinearAOC(BaseAOC, ABC):
 
 class GridAOC(BaseAOC, ABC):
     def parse_input(self):
-        self.input: npt.NDArray = np.array(
-            [list(line) for line in self.raw_input.splitlines()]
-        )
+        self.input = np.array([list(line) for line in self.raw_input.splitlines()])
 
 
 class LineGroupAOC(BaseAOC, ABC):
