@@ -1,5 +1,6 @@
 import dataclasses
 import itertools
+import math
 import re
 from collections import defaultdict
 
@@ -39,12 +40,12 @@ class Day8(AOC.LineGroupAOC):
 
         return nodes_dict
 
-    def part_1(self):
+    def get_loop_size(self, node):
         instructions = self.input[0][0]
 
-        nodes_dict = self.get_nodes()
+        nodes_dict = self.nodes
 
-        current_node = nodes_dict["AAA"]
+        current_node = nodes_dict[node]
         counter = 0
         for instruction in itertools.cycle(instructions):
             counter += 1
@@ -53,31 +54,24 @@ class Day8(AOC.LineGroupAOC):
             elif instruction == "R":
                 current_node = current_node.right
 
-            if current_node is nodes_dict["ZZZ"]:
+            if current_node.ending:
                 break
 
         return counter
+
+    def part_1(self):
+        self.nodes = self.get_nodes()
+
+        return self.get_loop_size("AAA")
 
     def part_2(self):
-        instructions = self.input[0][0]
-
-        nodes_dict = self.get_nodes()
-
-        current_nodes = [node for node in nodes_dict.values() if node.starting]
-        counter = 0
-        for instruction in itertools.cycle(instructions):
-            counter += 1
-            if instruction == "L":
-                current_nodes = [current_node.left for current_node in current_nodes]
-            elif instruction == "R":
-                current_nodes = [current_node.right for current_node in current_nodes]
-
-            ending = [current_node.ending for current_node in current_nodes]
-
-            if all([current_node.ending for current_node in current_nodes]):
-                break
-
-        return counter
+        self.nodes = self.get_nodes()
+        loops_sizes = [
+            self.get_loop_size(node.name)
+            for node in self.nodes.values()
+            if node.starting
+        ]
+        return math.lcm(*loops_sizes)
 
 
 if __name__ == "__main__":
