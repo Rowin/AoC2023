@@ -1,6 +1,7 @@
 import dataclasses
 import functools
 from typing import List, Iterable
+import matplotlib.pyplot as plt
 
 import numpy as np
 
@@ -44,7 +45,29 @@ class Day21(AOC.GridAOC):
         return len(possible_positions)
 
     def part_2(self):
-        pass
+        self.garden = np.concatenate([np.concatenate([self.input] * 9, 1)] * 9, 0)
+
+        starting_position = Position(*next(zip(*np.where(self.input == "S"))))
+
+        height, width = self.input.shape
+        starting_position += Position(4 * height, 4 * width)
+
+        len_history = []
+        possible_positions = {starting_position}
+        for step in range(520):
+            next_possible_positions: List[Position] = []
+            try:
+                for position in possible_positions:
+                    next_possible_positions += self.get_neighbor_garden_patch(position)
+            except:
+                break
+
+            possible_positions = set(next_possible_positions)
+            len_history.append(len(possible_positions))
+
+        plt.plot(list(range(len(len_history))), len_history, ".")
+        print(len_history)
+        plt.show()
 
     @functools.lru_cache(maxsize=None)
     def get_neighbor_garden_patch(self, position: Position) -> List:
@@ -59,4 +82,4 @@ class Day21(AOC.GridAOC):
 
 if __name__ == "__main__":
     day_21 = Day21()
-    print(day_21.part_1())
+    print(day_21.part_2())
